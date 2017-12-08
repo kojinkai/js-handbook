@@ -40,3 +40,17 @@ for (let i = 0; i < arr.length; i++) {
   }, 3000);
 }
 ```
+
+## Undefined vs NULL
+```javascript
+// Q: What will the following code evaluate to?
+typeof null // A: object
+typeof undefined // A: "undefined"
+```
+### Discussion
+> You may wonder why the typeof operator returns 'object' for a value that is null. This was actually an error in the original JavaScript implementation that was then copied in ECMAScript. Today, it is rationalized that null is considered a placeholder for an object, even though, technically, it is a primitive value.
+> undefined means a variable has been declared but has not yet been assigned a value whereas null is an assignment value. It can be assigned to a variable as a representation of no value.
+> -- <cite>Professional JS For Web Developers (Wrox)</cite>
+
+Also, undefined and null are two distinct types: undefined is a type itself (undefined) while null is an object.
+Unassigned variables are initialized to undefined. JavaScript never sets a value to null. That must be done programmatically.
