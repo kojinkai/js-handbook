@@ -20,8 +20,9 @@ The problem deals with closures, setTimeout and scope. The setTimeout method tak
 There are two solution to this problem. The first involves creating a parametrised inner function and passing the current value of `i` within each loop iteration.
 ```javascript
 for (var i = 0; i < arr.length; i++) {
-  // pass in variable i so the innermost function is
-  // 
+  // pass in variable i so the innermost function
+  // has access to the value of i in a given iteration of the loop
+  // in scope
   setTimeout(function(i_local) {
     return function() {
       console.log(`Index ${i_local} element: ${arr[i_local]}`)
@@ -32,6 +33,8 @@ for (var i = 0; i < arr.length; i++) {
 The second possible solution uses ES6 and is more concise
 ```javascript
 for (let i = 0; i < arr.length; i++) {
+  // The ES5+ let syntax creates a new binding
+  // every time the function is called
   setTimeout(function() {
     console.log(`Index ${i} element: ${arr[i]}`)
   }, 3000);
