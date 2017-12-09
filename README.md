@@ -91,7 +91,7 @@ function doSomethingElse() {
   console.log(bar);
   var bar = 111;
 }
-```
+
 doSomethingElse() // Uncaught ReferenceError: foo is not defined
 ```
 So we can see that the execution context knows about any declarations before a function is ran and will initialise variables to undefined.
