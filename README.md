@@ -11,7 +11,7 @@
 ## Closures & SetTimeout
 
 ```js
-// Q: What will the following code output?
+// Question: What will the following code output?
 const arr = [10, 12, 15, 21];
 for (var i = 0; i < arr.length; i++) {
 	setTimeout(function() {
@@ -19,7 +19,7 @@ for (var i = 0; i < arr.length; i++) {
 	}, 3000);
 }
 
-// A: Index 4 element: undefined (4 times)
+// Answer: Index 4 element: undefined (4 times)
 ```
 
 ### Discussion
@@ -54,9 +54,9 @@ for (let i = 0; i < arr.length; i++) {
 
 ## Undefined vs NULL
 ```js
-// Q: What will the following code evaluate to?
-typeof null // A: object
-typeof undefined // A: "undefined"
+// Question: What will the following code evaluate to?
+typeof null // Answer: object
+typeof undefined // Answer: "undefined"
 ```
 ### Discussion
 > You may wonder why the typeof operator returns 'object' for a value that is null. This was actually an error in the original JavaScript implementation that was then copied in ECMAScript. Today, it is rationalized that null is considered a placeholder for an object, even though, technically, it is a primitive value.
@@ -68,12 +68,12 @@ Unassigned variables are initialized to undefined. JavaScript never sets a value
 
 ## Variable Hoisting
 ```js
-// Q: What will happen when this function is executed?
+// Question: What will happen when this function is executed?
 function doSomething() {
   console.log(bar);
   var bar = 111;
 }
-// A: doSomething() // logs undefined
+// Answer: doSomething() // logs undefined
 ```
 ### Discussion
 This issue deals with what is known as "hoisting" in JavaScript.
@@ -106,12 +106,12 @@ In this instance bar is not declared as a variable so an Uncaught ReferenceError
 Declare variables at the top of the enclosing scope
 
 ## The this keyword
-Q: Explain this
+Question: Explain this
 
 Answer: At the time of execution of every function, a property called `this` is set and it refers to the current execution context. `this` always refers to an object and which object depends on the context in which the function is being called. For example:
 
-In the global context or inside a function `this` refers to the window object.
-Inside IIFE (immediate invoking function) if you use "use strict", value of `this` is undefined.
+* In the global context or inside a function `this` refers to the window object.
+* Inside IIFE (immediately invoked function expression) if you use "use strict", value of `this` is undefined.
 ```js
 (function() {
   console.log(this) // Window
@@ -122,9 +122,8 @@ Inside IIFE (immediate invoking function) if you use "use strict", value of `thi
   console.log(this) // undefined
 })()
 ```
-*To access the window object inside IIFE with "use strict", you would have to pass `window` to the IIFE as an argument.*
-While executing a function in the context of an object, the object becomes the value of `this`
-Inside a setTimeout function, the value of `this` is the window object.
+* While executing a function in the context of an object, the object becomes the value of `this`
+* Inside a setTimeout function, the value of `this` is the window object.
 ```js
 const obj = {
   foo: function() {
@@ -137,19 +136,19 @@ const obj = {
   }
 }
 ```
-If you use a constructor (by using new keyword) to create an object, the value of `this` will refer to the newly created object.
-You can set the value of `this` to any arbitrary object by passing the object as the first parameter of bind, call or apply
-For dom event handler, value of `this` would be the element that fired the event
+* If you use a constructor (by using the new keyword) to create an object, the value of `this` will refer to the newly created object.
+* You can set the value of `this` to an object of your choosing by passing that object as the first argument of bind, call or apply
+* For an event handler bound to a DOM element, value of `this` would be the element that the event was fired upon
 
 ## Constructing Primitive Types
 ```js
-Q: what do the following logs output?
+Question: what do the following logs output?
 const emptyConstructedString = new String('');
 const emptyStringLiteral = '';
 console.log(typeof emptyConstructedString);
 console.log(typeof emptyStringLiteral);
 
-// A: 
+// Answer: 
 console.log(typeof emptyConstructedString); // "object"
 console.log(typeof emptyStringLiteral); // "string"
 ```
