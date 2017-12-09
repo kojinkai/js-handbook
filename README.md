@@ -10,6 +10,7 @@
 
 ```js
 // Q: What will the following code output?
+const arr = [10, 12, 15, 21];
 for (var i = 0; i < arr.length; i++) {
 	setTimeout(function() {
 		console.log(`Index ${i} element: ${arr[i]}`)
@@ -25,6 +26,7 @@ The problem deals with closures, setTimeout and scope. The setTimeout method tak
 ### Solutions
 There are two solution to this problem. The first involves creating a parametrised inner function and passing the current value of `i` within each loop iteration.
 ```js
+const arr = [10, 12, 15, 21];
 for (var i = 0; i < arr.length; i++) {
   // pass in variable i so the innermost function
   // has access to the value of i in a given iteration of the loop
@@ -38,6 +40,7 @@ for (var i = 0; i < arr.length; i++) {
 ```
 The second possible solution uses ES6 and is more concise
 ```js
+const arr = [10, 12, 15, 21];
 for (let i = 0; i < arr.length; i++) {
   // The ES5+ let syntax creates a new binding
   // every time the function is called
