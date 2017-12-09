@@ -142,7 +142,7 @@ const obj = {
 
 ## Constructing Primitive Types
 ```js
-Question: what do the following logs output?
+// Question: what do the following logs output?
 const emptyConstructedString = new String('');
 const emptyStringLiteral = '';
 console.log(typeof emptyConstructedString);
