@@ -1,8 +1,14 @@
 # JS Gotchas
 
-## Closures and SetTimeout
+## Table of contents
 
-```javascript
+- [Closures and SetTimout](#closures--settimeout)
+- [Undefined vs NULL](#undefined-vs-null)
+- [Variable Hoisting](#variable-hoisting)
+
+## Closures & SetTimeout
+
+```js
 // Q: What will the following code output?
 for (var i = 0; i < arr.length; i++) {
 	setTimeout(function() {
@@ -18,7 +24,7 @@ The problem deals with closures, setTimeout and scope. The setTimeout method tak
 
 ### Solutions
 There are two solution to this problem. The first involves creating a parametrised inner function and passing the current value of `i` within each loop iteration.
-```javascript
+```js
 for (var i = 0; i < arr.length; i++) {
   // pass in variable i so the innermost function
   // has access to the value of i in a given iteration of the loop
@@ -31,7 +37,7 @@ for (var i = 0; i < arr.length; i++) {
 }
 ```
 The second possible solution uses ES6 and is more concise
-```javascript
+```js
 for (let i = 0; i < arr.length; i++) {
   // The ES5+ let syntax creates a new binding
   // every time the function is called
@@ -42,7 +48,7 @@ for (let i = 0; i < arr.length; i++) {
 ```
 
 ## Undefined vs NULL
-```javascript
+```js
 // Q: What will the following code evaluate to?
 typeof null // A: object
 typeof undefined // A: "undefined"
@@ -54,3 +60,38 @@ typeof undefined // A: "undefined"
 
 Also, undefined and null are two distinct types: undefined is a type itself (undefined) while null is an object.
 Unassigned variables are initialized to undefined. JavaScript never sets a value to null. That must be done programmatically.
+
+## Variable Hoisting
+```js
+// Q: What will happen when this function is executed?
+function doSomething() {
+  console.log(bar);
+  var bar = 111;
+}
+// A: doSomething() // logs undefined
+```
+### Discussion
+Variable declarations (and declarations in general) are processed before any code is executed and so declaring a variable anywhere in the code is equivalent to declaring it at the top.
+This means that a variable can appear to be used before it's declared. This behavior is called "hoisting", as it appears that the variable declaration is moved to the top of the function or global code.
+
+The above `doSomething()` function is implicitly understood as
+```js
+function doSomething() {
+  var bar;
+  console.log(bar); // undefined
+  bar = 111;
+  console.log(bar); // 111
+}
+```
+
+Consider the following example with undeclared variables:
+```js
+function doSomethingElse() {
+  console.log(foo);
+  console.log(bar);
+  var bar = 111;
+}
+```
+doSomethingElse() // Uncaught ReferenceError: foo is not defined
+```
+So we can see that the execution context knows about any declarations before a function is ran and will initialise variables to undefined.
