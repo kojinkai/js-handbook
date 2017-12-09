@@ -5,6 +5,8 @@
 - [Closures and SetTimout](#closures--settimeout)
 - [Undefined vs NULL](#undefined-vs-null)
 - [Variable Hoisting](#variable-hoisting)
+- [The this keyword](#the-this-keyword)
+- [Constructing Primitive Types](#constructing-primitive-types)
 
 ## Closures & SetTimeout
 
@@ -74,10 +76,11 @@ function doSomething() {
 // A: doSomething() // logs undefined
 ```
 ### Discussion
+This issue deals with what is known as "hoisting" in JavaScript.
 Variable declarations (and declarations in general) are processed before any code is executed and so declaring a variable anywhere in the code is equivalent to declaring it at the top.
-This means that a variable can appear to be used before it's declared. This behavior is called "hoisting", as it appears that the variable declaration is moved to the top of the function or global code.
+This means that a variable can appear to be used before it's declared as though the variable declaration was moved to the top of the function or global code.
 
-The above `doSomething()` function is implicitly understood as
+Therefore the above `doSomething()` function is implicitly understood as
 ```js
 function doSomething() {
   var bar;
@@ -87,7 +90,7 @@ function doSomething() {
 }
 ```
 
-Consider the following example with undeclared variables:
+Consider also the following example with undeclared variables:
 ```js
 function doSomethingElse() {
   console.log(foo);
@@ -97,4 +100,58 @@ function doSomethingElse() {
 
 doSomethingElse() // Uncaught ReferenceError: foo is not defined
 ```
-So we can see that the execution context knows about any declarations before a function is ran and will initialise variables to undefined.
+In this instance bar is not declared as a variable so an Uncaught ReferenceError is thrown when bar is encountered. However the execution context knows about any declarations before a function is ran and will initialise these variables to undefined.
+
+### Solution
+Declare variables at the top of the enclosing scope
+
+## The this keyword
+Q: Explain this
+
+Answer: At the time of execution of every function, a property called `this` is set and it refers to the current execution context. `this` always refers to an object and which object depends on the context in which the function is being called. For example:
+
+In the global context or inside a function `this` refers to the window object.
+Inside IIFE (immediate invoking function) if you use "use strict", value of `this` is undefined.
+```js
+(function() {
+  console.log(this) // Window
+})()
+
+(function() {
+  'use strict';
+  console.log(this) // undefined
+})()
+```
+*To access the window object inside IIFE with "use strict", you would have to pass `window` to the IIFE as an argument.*
+While executing a function in the context of an object, the object becomes the value of `this`
+Inside a setTimeout function, the value of `this` is the window object.
+```js
+const obj = {
+  foo: function() {
+    console.log('calling foo: ', this); // {foo: ƒ, bar: ƒ}
+  },
+  bar: function() {
+    setTimeout(function() {
+      console.log('calling bar: ', this); // Window
+    }, 0)
+  }
+}
+```
+If you use a constructor (by using new keyword) to create an object, the value of `this` will refer to the newly created object.
+You can set the value of `this` to any arbitrary object by passing the object as the first parameter of bind, call or apply
+For dom event handler, value of `this` would be the element that fired the event
+
+## Constructing Primitive Types
+```js
+Q: what do the following logs output?
+const emptyConstructedString = new String('');
+const emptyStringLiteral = '';
+console.log(typeof emptyConstructedString);
+console.log(typeof emptyStringLiteral);
+
+// A: 
+console.log(typeof emptyConstructedString); // "object"
+console.log(typeof emptyStringLiteral); // "string"
+```
+### Discussion
+Although we are passing empty string to the string constructor, calling `new String()` will naturally create a new object instance. The same is true when calling `new Boolean()`
