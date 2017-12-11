@@ -107,10 +107,10 @@ Where variables are initialised to undefined at the top of the function scope on
 function anotherHoistingTest() {
   foo(); // TypeError "foo is not a function"
   bar(); // this runs!
-  const foo = function() { // this function expression is nowassigned to local variable 'foo'
-    console.log('this won't run');
+  const foo = function() { // this function expression is now assigned to local variable 'foo'
+    console.log('this will not run');
   }
-  function bar() { // function declaration, given the name 'bar'
+  function bar() { // function expression, given the name 'bar'
     console.log('this will run');
   }
 }
