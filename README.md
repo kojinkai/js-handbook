@@ -120,8 +120,11 @@ anotherHoistingTest();
 ### Solution
 To avoid unexpected behaviour with functions being available for use before they are declared, some developers prefer to declare all variables at the top of the enclosing scope. Furthermore declaring functions as variables is also often preferred to using named function expressions. for example
 ```js
-function thisNamedFunction() {}; // Function body is hoisted meaning it can be used before declaration
-const thisOtherNamedFunction = function() {}; // thisOtherNamedFunction is initialised to undefined at the top of the closure giving more predictable behaviour
+// OK. Function body is hoisted meaning it can be used before declaration.
+function thisNamedFunction() {};
+
+// Better. `thisOtherNamedFunction` is initialised to undefined at the top of the enclosing scope but cannot be called until the function body assignment is encountered. This may result in more predictable behaviour.
+const thisOtherNamedFunction = function() {};
 ```
 
 ## The this keyword
