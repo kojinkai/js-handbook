@@ -71,19 +71,18 @@ Unassigned variables are initialized to undefined. JavaScript never sets a value
 // Question: What will happen when this function is executed?
 function doSomething() {
   console.log(bar);
-  var bar = 111;
+  const bar = 111;
 }
 // Answer: doSomething() // logs undefined
 ```
 ### Discussion
 This issue deals with what is known as "hoisting" in JavaScript.
-Variable declarations (and declarations in general) are processed before any code is executed and so declaring a variable anywhere in the code is equivalent to declaring it at the top.
-This means that a variable can appear to be used before it's declared as though the variable declaration was moved to the top of the function or global code.
+Variable declarations (and declarations in general) are processed before any code is executed and so declaring a variable or function anywhere in the code is equivalent to declaring it at the top. This means that a variable can appear to be used before it's declared as though the variable declaration was moved to the top of the function or global code.
 
 Therefore the above `doSomething()` function is implicitly understood as
 ```js
 function doSomething() {
-  var bar;
+  const bar;
   console.log(bar); // undefined
   bar = 111;
   console.log(bar); // 111
@@ -95,15 +94,35 @@ Consider also the following example with undeclared variables:
 function doSomethingElse() {
   console.log(foo);
   console.log(bar);
-  var bar = 111;
+  const bar = 111;
 }
 
 doSomethingElse() // Uncaught ReferenceError: foo is not defined
 ```
 In this instance bar is not declared as a variable so an Uncaught ReferenceError is thrown when bar is encountered. However the execution context knows about any declarations before a function is ran and will initialise these variables to undefined.
 
+Where variables are initialised to undefined at the top of the function scope only their names are hoisted. With function declarations the function body is hoisted as well. Consider the following code:
+
+```js
+function anotherHoistingTest() {
+  foo(); // TypeError "foo is not a function"
+  bar(); // this runs!
+  const foo = function() { // this function expression is nowassigned to local variable 'foo'
+    console.log('this won't run');
+  }
+  function bar() { // function declaration, given the name 'bar'
+    console.log('this will run');
+  }
+}
+anotherHoistingTest();
+```
+
 ### Solution
-Declare variables at the top of the enclosing scope
+To avoid unexpected behaviour with functions being available for use before they are declared, some developers prefer to declare all variables at the top of the enclosing scope. Furthermore declaring functions as variables is also often preferred to using named function expressions. for example
+```js
+function thisNamedFunction() {}; // Function body is hoisted meaning it can be used before declaration
+const thisOtherNamedFunction = function() {}; // thisOtherNamedFunction is initialised to undefined at the top of the closure giving more predictable behaviour
+```
 
 ## The this keyword
 Question: Explain this
