@@ -101,7 +101,7 @@ function doSomethingElse() {
 
 doSomethingElse() // Uncaught ReferenceError: foo is not defined
 ```
-In this instance bar is not declared as a variable so an Uncaught ReferenceError is thrown when bar is encountered. However the execution context knows about any declarations before a function is ran and will initialise these variables to undefined.
+In this instance `foo` is not declared as a variable so an Uncaught ReferenceError is thrown when `foo` is encountered. However the execution context knows about the `bar` declaration before the function is run and will initialise it to undefined.
 
 Where variables are initialised to undefined at the top of the function scope only their names are hoisted. With function declarations the function body is hoisted as well. Consider the following code:
 
@@ -118,7 +118,7 @@ function anotherHoistingTest() {
 }
 anotherHoistingTest();
 ```
-As of ES6+ this has become less of a problem owing to the introduction of the `let` and `const` keywords which cause the interpreter to throw and error if they are used before they are declared. This seems to solve the long-standing hoisting gotcha inherent in using the `var` keyword.
+As of ES6+ variable hoisting has become less of a problem owing to the introduction of the `let` and `const` keywords. Attempting to use `let` or `const` values before they are declared will cause the interpreter to throw and error. This at least seems to solve the long-standing hoisting gotcha inherent in using the `var` keyword.
 ```js
 function doSomething() {
   console.log(bar);
@@ -136,9 +136,8 @@ function thisNamedFunction() {};
 
 // A bit better. `thisOtherNamedFunction` is initialised to undefined at the top of the enclosing scope but cannot be called until the function body assignment is encountered. This may result in more predictable behaviour.
 var thisOtherNamedFunction = function() {};
-
-// Better still, stick to let or const keywords for variable declaration which forces you to declare them before they are used, at the top of the scope.
 ```
+Better still though is to use let or const keywords for variable declaration as this forces you to declare them before they are used avoiding any behind the scenes hoisting.
 
 ## The this keyword
 Question: Explain this
