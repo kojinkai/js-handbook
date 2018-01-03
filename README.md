@@ -7,6 +7,7 @@
 - [Variable Hoisting](#variable-hoisting)
 - [The this keyword](#the-this-keyword)
 - [Constructing Primitive Types](#constructing-primitive-types)
+- [Equality Checking](#equality-checking)
 
 ## Closures & SetTimeout
 
@@ -176,3 +177,23 @@ console.log(typeof emptyStringLiteral); // "string"
 ```
 ### Discussion
 Although we are passing empty string to the string constructor, calling `new String()` will naturally create a new object instance. The same is true when calling `new Boolean()`
+
+## Equality checking
+```js
+// Question: Given the following variable assignments, What is the outcome of the following equality checks?
+
+let foo;
+const bar = null;
+
+foo == bar;
+foo === bar;
+
+// Answer:
+console.log(foo == bar); // true
+console.log(foo === bar); // false
+```
+### Discussion
+Double equals `==` tests for equality where triple equals `===` tests for equality and type.
+The expression `let foo;` assigns the variable `foo` a value of `undefined` and so when comparing this value to `null` only by equality the JavaScript interpreter sees that both values are assigned to a nothing value and returns true.
+
+However, comparing on equality and type returns `false` as `undefined` and `null` are different types in JavaScript
