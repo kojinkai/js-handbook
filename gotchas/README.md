@@ -1,5 +1,5 @@
 # Gotchas
-
+A list of pitfalls, gotchas and weirdness in JavaScript
 ## Table of contents
 
 - [Closures and SetTimout](#closures--settimeout)
