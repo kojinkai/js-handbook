@@ -5,5 +5,5 @@ This is an evolving guide and reference point for the JavaScript developer. My h
 
 ## Table of contents
 
-- [Common Gotchas and Pitfalls](https://github.com/kojinkai/js-handbook/gotchas)
+- [Common Gotchas and Pitfalls](https://github.com/kojinkai/js-handbook/tree/master/gotchas)
  
