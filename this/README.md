@@ -30,11 +30,6 @@ At the time of execution of every function, a property called `this` is set and 
 const obj = {
   foo: function() {
     console.log('calling foo: ', this); // {foo: ƒ, bar: ƒ}
-  },
-  bar: function() {
-    setTimeout(function() {
-      console.log('calling bar: ', this); // Window
-    }, 0)
   }
 }
 ```
@@ -69,5 +64,15 @@ const boundThis = module.getX.bind({ x: 300 });
 
 boundThis() // 300
 ```
+## this & setTimeout
+* Inside a setTimeout function, the value of `this` is the window object.
+```js
+const obj = {
+  bar: function() {
+    setTimeout(function() {
+      console.log('calling bar: ', this); // Window
+    }, 0)
+  }
+}
 * For an event handler bound to a DOM element, value of `this` would be the element that the event was fired upon
  
