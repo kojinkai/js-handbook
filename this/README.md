@@ -8,6 +8,7 @@ At the time of execution of every function, a property called `this` is set and 
 - [this & objects](#this--objects)
 - [this & constructors](#this--constructors)
 - [this & setTimeout](#this--settimeout)
+- [this & event handlers](#this--events)
 
 ## this & Functions
 
@@ -75,6 +76,7 @@ const obj = {
     }, 0)
   }
 }
+```
 
 ## this & event handlers
 * For an event handler bound to a DOM element, value of `this` would be the element that the event was fired upon
