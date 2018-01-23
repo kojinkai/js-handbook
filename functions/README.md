@@ -61,9 +61,9 @@ document.querySelector('.element-container').addEventListener('click', function(
 }.bind(this));
 
 ```
-<aside class="notice">
+`<aside class="notice">
 We can also use the fat arrow syntax to the same effect here
-</aside>
+</aside>`
 ```js
 // Logs current context
 document.querySelector('.element-container').addEventListener('click', () => {
