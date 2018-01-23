@@ -48,24 +48,27 @@ Given the following DOM element
 <div class="element-container">Some content</div>
 
 ```
-
+The following examples show the effect of `.bind()` when attaching event handlers
 ```js
 // Logs the DOM element
 document.querySelector('.element-container').addEventListener('click', function() {
   console.log(this) // <div class="element-container">Some content</div>
 });
 
-
 // Logs current context
 document.querySelector('.element-container').addEventListener('click', function() {
   console.log(this);
 }.bind(this));
 
+```
+<aside class="notice">
+We can also use the fat arrow syntax to the same effect here
+</aside>
+```js
 // Logs current context
 document.querySelector('.element-container').addEventListener('click', () => {
   console.log(this)
 });
-
 ```
 
 See also the section on the [this keyword](https://github.com/kojinkai/js-handbook/tree/master/this)
