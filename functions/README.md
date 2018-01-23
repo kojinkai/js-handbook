@@ -25,7 +25,7 @@ boundGetX(); // 120
 ```
 
 ### Discussion
-Using `.bind()` can be useful for ~partially applying~ functions with a context. Put another way, if a function, such as `module.getX` shown above, references its `this` property, we can use bind to pre-prepare `getX` with a new `this` value therefore influencing the outcome of the function call. Since `.bind()` returns a function, we can generate a function with a this value store within.
+Using `.bind()` can be useful for _partially applying_ functions with a context. Put another way, if a function, such as `module.getX` shown above, references its `this` property, we can use bind to pre-prepare `getX` with a new `this` value therefore influencing the outcome of the function call. Since `.bind()` returns a function, we can generate a function with a this value store within.
 
 ```js
 const module = {
