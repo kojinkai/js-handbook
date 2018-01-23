@@ -61,6 +61,7 @@ document.querySelector('.element-container').addEventListener('click', function(
 }.bind(this));
 
 ```
+As an aside we can also use the fat arrow syntax to lazily bind to the current context which might often be less verbose than explicity binding to `this` using `.bind(this)`.
 ```js
 // Logs current context
 document.querySelector('.element-container').addEventListener('click', () => {
