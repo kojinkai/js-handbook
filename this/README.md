@@ -27,7 +27,6 @@ At the time of execution of every function, a property called `this` is set and 
 
 ## this & Objects
 * While executing a function in the context of an object, the object becomes the value of `this`
-* Inside a setTimeout function, the value of `this` is the window object.
 ```js
 const obj = {
   foo: function() {
@@ -52,7 +51,7 @@ const billy = new Person('billy', 22);
 billy.sayName() // billy
 
 ```
-* You can set the value of `this` to an object of your choosing by passing that object as the first argument of bind, call or apply
+You can set the value of `this` to an object of your choosing by passing that object as the first argument of bind, call or apply
 ```js
 const module = {
   x: 120,
