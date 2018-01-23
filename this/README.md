@@ -7,7 +7,7 @@ At the time of execution of every function, a property called `this` is set and 
 - [this & functions](#this--functions)
 - [this & objects](#this--objects)
 - [this & constructors](#this--constructors)
-- [this & Event Handlers](#this--eventhandlers)
+- [this & setTimeout](#this--settimeout)
 
 ## this & Functions
 
