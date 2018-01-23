@@ -1,5 +1,5 @@
 # Gotchas
-
+A list of pitfalls, gotchas and weirdness in JavaScript
 ## Table of contents
 
 - [Closures and SetTimout](#closures--settimeout)
@@ -139,40 +139,41 @@ var thisOtherNamedFunction = function() {};
 ```
 Better still though is to use let or const keywords for variable declaration as this forces you to declare them before they are used avoiding any behind the scenes hoisting.
 
-## The this keyword
-Question: Explain this
+## `this` and `setTimeout`
+Question: What is the value of this in the following function
 
-Answer: At the time of execution of every function, a property called `this` is set and it refers to the current execution context. `this` always refers to an object and which object depends on the context in which the function is being called. For example:
-
-* In the global context or inside a function `this` refers to the window object.
-* Inside IIFE (immediately invoked function expression) if you use "use strict", value of `this` is undefined.
-```js
-(function() {
-  console.log(this) // Window
-})()
-
-(function() {
-  'use strict';
-  console.log(this) // undefined
-})()
-```
-* While executing a function in the context of an object, the object becomes the value of `this`
-* Inside a setTimeout function, the value of `this` is the window object.
 ```js
 const obj = {
   foo: function() {
-    console.log('calling foo: ', this); // {foo: ƒ, bar: ƒ}
-  },
-  bar: function() {
     setTimeout(function() {
       console.log('calling bar: ', this); // Window
     }, 0)
   }
 }
 ```
-* If you use a constructor (by using the new keyword) to create an object, the value of `this` will refer to the newly created object.
-* You can set the value of `this` to an object of your choosing by passing that object as the first argument of bind, call or apply
-* For an event handler bound to a DOM element, value of `this` would be the element that the event was fired upon
+Answer: Inside a setTimeout function, the value of `this` is set to the window object. In the above example however, using the fat arrow `=>` syntax, or `.bind()` will bind the `setTimeout` callback to the object scope.
+
+```js
+const objA = {
+  foo: function() {
+    setTimeout(() => {
+      console.log('calling bar: ', this);
+    }, 0)
+  }
+}
+
+objA.foo(); // {foo: ƒ}
+
+const objB = {
+  foo: function() {
+    setTimeout(function() {
+      console.log('calling bar: ', this);
+    }.bind(this), 0)
+  }
+}
+
+objB.foo() // {foo: ƒ}
+```
 
 ## Constructing Primitive Types
 ```js
