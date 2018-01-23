@@ -7,6 +7,7 @@ At the time of execution of every function, a property called `this` is set and 
 - [this & functions](#this--functions)
 - [this & objects](#this--objects)
 - [this & constructors](#this--constructors)
+- [this & Event Handlers](#this--event-handlers)
 
 ## this & Functions
 
@@ -74,5 +75,22 @@ const obj = {
     }, 0)
   }
 }
+
+## this & event handlers
 * For an event handler bound to a DOM element, value of `this` would be the element that the event was fired upon
+
+Given the following HTML fragment
+```html
+<div class="element-container">Some content</div>
+
+```
+
+```js
+// Logs the DOM element
+document.querySelector('.element-container').addEventListener('click', function() {
+  console.log(this) // <div class="element-container">Some content</div>
+});
+```
+In many cases it is preferred to control the execution context of the callback handler. See the section on [binding a functions execution context](https://github.com/kojinkai/js-handbook/tree/master/functions#bind)
+
  

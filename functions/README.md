@@ -41,3 +41,31 @@ partiallyAppliedWithANewContext() // 300
 ```
 
 With this in mind `.bind()` is also useful for controlling the context when attaching event handlers to DOM elements. Since the `this` keyword is automatically bound to the DOM element the event was called upon, it is often useful to attach a callback function bound to another context, a controller class for example, in order that DOM events can be used to interact with properties and methods in other scopes.
+
+Given the following DOM element
+
+```html
+<div class="element-container">Some content</div>
+
+```
+
+```js
+// Logs the DOM element
+document.querySelector('.element-container').addEventListener('click', function() {
+  console.log(this) // <div class="element-container">Some content</div>
+});
+
+
+// Logs current context
+document.querySelector('.element-container').addEventListener('click', function() {
+  console.log(this);
+}.bind(this));
+
+// Logs current context
+document.querySelector('.element-container').addEventListener('click', () => {
+  console.log(this)
+});
+
+```
+
+See also the section on the [this keyword](https://github.com/kojinkai/js-handbook/tree/master/this)
