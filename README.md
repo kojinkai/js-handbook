@@ -7,5 +7,6 @@ This is an evolving guide and reference point for the JavaScript developer. My h
 
 - [Functions](https://github.com/kojinkai/js-handbook/tree/master/functions)
 - [the `this` keyword](https://github.com/kojinkai/js-handbook/tree/master/this)
+- [Prototypal inheritance](https://github.com/kojinkai/js-handbook/tree/master/prototypal-inheritance)
 - [Common Gotchas and Pitfalls](https://github.com/kojinkai/js-handbook/tree/master/gotchas)
  

@@ -1,6 +1,6 @@
-# JS handbook
+# The `this` keyword
 
-At the time of execution of every function, a property called `this` is set and it refers to the current execution context. `this` always refers to an object and which object depends on the context in which the function is being called. For example:
+At the time of execution of every function, a property called `this` is set and it refers to the current execution context. `this` always refers to an object and which object depends on the context in which the function is being called.
 
 ## Table of contents
 
