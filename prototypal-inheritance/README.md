@@ -2,9 +2,9 @@
 ## Notes on inheritance and the prototype chain
 The ES6 `class` keyword will make working with inheritance more familiar to developers coming from a class-based or object oriented language background. JavaScript, however, is prototype-based and the class keyword is merely a familiar interface or _syntactic sugar_ for JavaScript's prototypal inheritance system. Inheritance can therefore be acheived without classes and class inheritance.
 
-Each object in JavaScript has a link to it's own prototype object. That prototype object can in turn have its own prototype and so on until the root is reached and an object with `null` set as its prototype is reached. `null` has no prototype object by design.
+Each object in JavaScript is created with a link to it's own prototype object. That prototype object can in turn have its own prototype object and so on until the root is reached with a `null` value set as its prototype. `null` is an object type in JavaScript but has no prototype object by design.
 
-When a portion of your program tries to access properties or methods on an object, the property will be looked for on the object itself but also on the object's prototype and then the prototype's prototype and so on until the accessor has either found the property being searched for or reached the `null` object at the root of the prototype chain. Should null be reached the accessor will return `undefined`.
+When a portion of your program tries to access properties or methods on a given object, the property will be looked for first on the object itself and then on the object's prototype and then the prototype's prototype and so on until the accessor has either found the property being searched for or reached the `null` object at the root of the prototype chain. Should null be reached the accessor will return `undefined`.
 
 ## Table of contents
 - [The prototype chain and literal syntax construction](#the-prototype-chain-and-literal-syntax-construction)
