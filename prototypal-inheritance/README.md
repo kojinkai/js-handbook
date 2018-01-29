@@ -1,16 +1,17 @@
 # Prototypal Inheritance
+
+## Table of contents
+- [The prototype chain and literal syntax construction](#the-prototype-chain-and-literal-syntax-construction)
+- [The prototype chain and the `new` keyword](#the-prototype-chain-and-the-new-keyword)
+- [The prototype chain and `Object.create`](#the-prototype-chain-and-object.create)
+- [Credits](#credits)
+
 ## Notes on inheritance and the prototype chain
 The ES6 `class` keyword will make working with inheritance more familiar to developers coming from a class-based or object oriented language background. JavaScript, however, is prototype-based and the class keyword is merely a familiar interface or _syntactic sugar_ for JavaScript's prototypal inheritance system. Inheritance can therefore be acheived without classes and class inheritance.
 
 Each object in JavaScript is created with a link to it's own prototype object. That prototype object can in turn have its own prototype object and so on until the root is reached which has a `null` value set as its prototype. `null` is an object type in JavaScript but has no prototype object by design.
 
 When a portion of your program tries to access properties or methods on a given object, the property will be looked for first on the object itself and then on the object's prototype and then the prototype's prototype and so on until the accessor has either found the property being searched for or reached the `null` object at the root of the prototype chain. Should null be reached the accessor will return `undefined`.
-
-## Table of contents
-- [The prototype chain and literal syntax construction](#the-prototype-chain-and-literal-syntax-construction)
-- [The prototype chain and the `new` keyword](#the-prototype-chain-and-the-new-keyword)
-- [The prototype chain and `Object.create`](#the-prototype-chain-and-object.create)
-- [credits](#credits)
 
 ## The prototype chain and literal syntax construction
 ```js
@@ -141,5 +142,5 @@ The above example although a little crude demonstrates the inherent flexibility 
 ### Functional Inheritance
 
 ## Credits
-[Inheritance and the prototype chain on developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
-[3 different kinds of prototypal inheritance: ES6 Edition on JavaScript Scene](https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9)
+* [Inheritance and the prototype chain on developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+* [3 different kinds of prototypal inheritance: ES6 Edition on JavaScript Scene](https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9)
