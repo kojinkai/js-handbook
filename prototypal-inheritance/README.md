@@ -85,7 +85,7 @@ class Person {
 const billy = new Person('Billy');
 billy.sayHello() // Hello, my name is Billy
 ```
-Delegation can also be achieved with `Object.create`. The pattern below creates a function `createPerson` that returns an object and this is known as a _factory_ function.
+Delegation can also be achieved with `Object.create`. The pattern below creates a function `createPerson` that returns an object. This is known as a _factory_ function.
 ```js
 
 const proto = {
