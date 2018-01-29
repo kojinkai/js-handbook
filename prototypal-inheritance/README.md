@@ -10,6 +10,7 @@ When a portion of your program tries to access properties or methods on a given 
 - [The prototype chain and literal syntax construction](#the-prototype-chain-and-literal-syntax-construction)
 - [The prototype chain and the `new` keyword](#the-prototype-chain-and-the-new-keyword)
 - [The prototype chain and `Object.create`](#the-prototype-chain-and-object.create)
+- [credits](#credits)
 
 ## The prototype chain and literal syntax construction
 ```js
@@ -44,7 +45,7 @@ List.prototype = {
 var shopping = new List();
 // List is just a function. Constructors in JavaScript are just plain functions with the first letter capitalised by developers as a convention.
 // shopping is an object with own property items.
-// the shopping prototype is the value of List.prototype when new List() is called.
+// the shopping prototype is the value of List.prototype when new List() is called. Note that the ES6 `class` keyword is merely syntactic sugar over the above example.
 // shopping ---> List.prototype --> Function.prototype ---> Object.prototype ---> null
 ```
 
@@ -61,3 +62,84 @@ console.log(obj2.a); // 1 (inherited)
 const obj3 = Object.create(obj2);
 // obj3 ---> obj2 ---> obj1 ---> Object.prototype ---> null
 ```
+
+## Inheritance Patterns
+
+### Delegation
+
+The ES6 class keyword will provide a familiar interface to class construction for developers from class-based languages. But this approach can create brittle hierachies and neglects JavaScripts powerful prototype system.
+
+```js
+
+class Person {
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHello() {
+    return `Hello, my name is ${this.name}`;
+  }
+}
+
+const billy = new Person('Billy');
+billy.sayHello() // Hello, my name is Billy
+```
+Delegation can also be achieved with `Object.create`. The pattern below creates a function `createPerson` that returns an object and this is known as a _factory_ function.
+```js
+
+const proto = {
+  sayHello () {
+    return `Hello, my name is ${ this.name }`;
+  }
+};
+
+const createPerson = (name) => Object.assign(Object.create(proto), {
+  name
+});
+
+const billy = createPerson('billy');
+
+billy.sayHello(); // Hello, my name is Billy
+
+```
+One drawback to the above approach is that any changes made to the `proto` object declared above will be delegated to all delegate objects created by `createPerson`.
+
+
+### Concatenative Inheritance / Mixins
+Concatenative inheritance copies properties from one object to another but in doing so clones the target object meaning that any connection between the objects is lost and a fresh copy of the object is created each time you inherit. Although similar to our factory function above note how instead of using `Object.create` to inherit from `proto` we instead copy `proto` and our desired properties to a new object using `Object.assign`.
+```js
+const proto = {
+  sayHello: function sayHello() {
+    return `Hello, my name is ${ this.name }`;
+  }
+};
+
+const billy = Object.assign({}, proto, { name: 'Billy' });
+
+billy.sayHello(); // Hello, my name is Billy
+```
+The above approach proposes a way of blending different objects together or _mixing in_ properties of other objects to compose new object combinations. This is why this pattern is known as a _mixin_. Futhermore this pattern offers increased flexibility for the developer. When you consider that concatenative inheritance yields a 'has a' relationship with other objects as opposed to an 'is a' relationship the prototype offered by delgative inheritance pattern, the developer is afforded great latitude to combine the functionality of many objects types free from the constraints of strict class hierarchies imposed by the `class` keyword. For example, if we take our object above and we wanted to mix in the properties of a third object type we could do this with a mixin pattern.
+```js
+function Person() {};
+Person.prototype.sayHello = function() {
+  console.log(`Hello, my name is ${ this.name }`);
+};
+
+const mixin = Object.assign({
+  sayAge() {
+    console.log(`Hello, my age is ${ this.age }`);
+  }
+}, Person.prototype);
+
+const billy = { name: 'Billy', age: 50 };
+const model = Object.assign(billy, mixin);
+billy.sayHello(); // Logs Hello my name is Billy
+billy.sayAge() // Logs Hello my age is 50
+```
+The above example although a little crude demonstrates the inherent flexibility of the mixin pattern and how it proposes a compositional approach to shared functionality.
+
+### Functional Inheritance
+
+## Credits
+[Inheritance and the prototype chain on developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+[3 different kinds of prototypal inheritance: ES6 Edition on JavaScript Scene](https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9)
