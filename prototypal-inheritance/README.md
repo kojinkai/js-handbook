@@ -4,7 +4,11 @@
 - [The prototype chain and literal syntax construction](#the-prototype-chain-and-literal-syntax-construction)
 - [The prototype chain and the `new` keyword](#the-prototype-chain-and-the-new-keyword)
 - [The prototype chain and `Object.create`](#the-prototype-chain-and-object.create)
-- [Credits](#credits)
+- Inheritance Patterns
+  - [Delegation](#delegation)
+  - [Concatenative Inheritance](#contatenative-inheritance)
+  - [Functional Inheritance](#functional-inheritance)
+  - [Credits](#credits)
 
 ## Notes on inheritance and the prototype chain
 The ES6 `class` keyword will make working with inheritance more familiar to developers coming from a class-based or object oriented language background. JavaScript, however, is prototype-based and the class keyword is merely a familiar interface or _syntactic sugar_ for JavaScript's prototypal inheritance system. Inheritance can therefore be acheived without classes and class inheritance.
