@@ -6,7 +6,7 @@
 - [The prototype chain and `Object.create`](#the-prototype-chain-and-object.create)
 - Inheritance Patterns
   - [Delegation](#delegation)
-  - [Concatenative Inheritance](#contatenative-inheritance-or-mixins)
+  - [Concatenative Inheritance](#concatenative-inheritance-or-mixins)
   - [Functional Inheritance](#functional-inheritance)
 - [Credits](#credits)
 
