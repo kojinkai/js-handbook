@@ -6,9 +6,9 @@
 - [The prototype chain and `Object.create`](#the-prototype-chain-and-object.create)
 - Inheritance Patterns
   - [Delegation](#delegation)
-  - [Concatenative Inheritance](#contatenative-inheritance)
+  - [Concatenative Inheritance](#contatenative-inheritance-or-mixins)
   - [Functional Inheritance](#functional-inheritance)
-  - [Credits](#credits)
+- [Credits](#credits)
 
 ## Notes on inheritance and the prototype chain
 The ES6 `class` keyword will make working with inheritance more familiar to developers coming from a class-based or object oriented language background. JavaScript, however, is prototype-based and the class keyword is merely a familiar interface or _syntactic sugar_ for JavaScript's prototypal inheritance system. Inheritance can therefore be acheived without classes and class inheritance.
@@ -110,7 +110,7 @@ billy.sayHello(); // Hello, my name is Billy
 One drawback to the above approach is that any changes made to the `proto` object declared above will be delegated to all delegate objects created by `createPerson`.
 
 
-### Concatenative Inheritance / Mixins
+### Concatenative Inheritance or Mixins
 Concatenative inheritance copies properties from one object to another but in doing so creates a clone of the target object. This means that any connection between the objects is lost and a fresh copy of the object is created each time you inherit. Although similar to our factory function above note how instead of using `Object.create` to inherit from `proto` we instead copy `proto` and our desired properties to a new object using `Object.assign`.
 ```js
 const proto = {
