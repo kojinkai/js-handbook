@@ -107,7 +107,7 @@ One drawback to the above approach is that any changes made to the `proto` objec
 
 
 ### Concatenative Inheritance / Mixins
-Concatenative inheritance copies properties from one object to another but in doing so clones the target object meaning that any connection between the objects is lost and a fresh copy of the object is created each time you inherit. Although similar to our factory function above note how instead of using `Object.create` to inherit from `proto` we instead copy `proto` and our desired properties to a new object using `Object.assign`.
+Concatenative inheritance copies properties from one object to another but in doing so creates a clone of the target object. This means that any connection between the objects is lost and a fresh copy of the object is created each time you inherit. Although similar to our factory function above note how instead of using `Object.create` to inherit from `proto` we instead copy `proto` and our desired properties to a new object using `Object.assign`.
 ```js
 const proto = {
   sayHello: function sayHello() {
@@ -140,6 +140,41 @@ billy.sayAge() // Logs Hello my age is 50
 The above example although a little crude demonstrates the inherent flexibility of the mixin pattern and how it proposes a compositional approach to shared functionality.
 
 ### Functional Inheritance
+Similar to the concatenative inheritance above, functional inheritance offers the added flexibility of a closure to encapsulate any private state we need. When combined with `call` we can build up a flexible and expressive factory for object creation.
+```js
+
+function Person() {};
+Person.prototype.sayHello = function() {
+  console.log(`Hello, my name is ${ this.name }`);
+};
+
+const createPerson = function() {
+  const attributes = { age: 'unknown' };
+  return Object.assign(this, {
+    setValue(name, value) {
+      attributes[name] = value;
+    },
+    getValue(name) {
+      return attributes[name];
+    }
+  }, Person.prototype)
+};
+
+const billy = { name: 'Billy' };
+const personModel = target => createPerson.call(target);
+const billyModel = personModel(billy);
+
+billyModel.sayHello();
+```
+
+Now let us assume we need to hold some private internal state in our person objects. Functional inheritance gives us a closure that allows us to hide away private data and then access it only via priviledged methods. Let's imagine we need to avoid explicitly declaring the person's age at instantiation time. Following from the above example we can do
+
+```js
+const janet = { name: 'Janet' };
+const janetModel  = personModel(janet);
+janetModel.setValue('age', 22);
+console.log(janetModel.getValue('age'));
+```
 
 ## Credits
 * [Inheritance and the prototype chain on developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
